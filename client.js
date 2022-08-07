@@ -144,21 +144,21 @@ module.exports = {
 
                 id: client_json.event_json.id,
 
-                camera_id: client_json.event_json.extras.camera_id,
+                // camera_id: client_json.event_json.extras.camera_id,
 
-                lane_id: client_json.event_json.info.camera_id,
+                // lane_id: client_json.event_json.info.camera_id,
 
                 plate: client_json.event_json.event.name,
 
-                confidence: client_json.event_json.event.confidence,
+                // confidence: client_json.event_json.event.confidence,
 
-                latitude: client_json.event_json.extras.latitude,
+                // latitude: client_json.event_json.extras.latitude,
 
-                longitude: client_json.event_json.extras.longitude,
+                // longitude: client_json.event_json.extras.longitude,
 
-                vehicle_category: client_json.event_json.event.vehicle_category.type,
+                vehicle_directiom: client_json.event_json.event.vehicle_category.type,
 
-                vehicle_category_confidence: client_json.event_json.event.vehicle_category.confidence,
+                // vehicle_category_confidence: client_json.event_json.event.vehicle_category.confidence,
 
                 event_timestamp: Math.round(parseFloat(client_json.event_json.info.event_timestamp)),
 
