@@ -142,7 +142,7 @@ module.exports = {
 
             var data = {
 
-                id: client_json.event_json.id,
+                unique_id: client_json.event_json.unique_id,
 
                 // camera_id: client_json.event_json.extras.camera_id,
 
@@ -156,7 +156,7 @@ module.exports = {
 
                 // longitude: client_json.event_json.extras.longitude,
 
-                vehicle_directiom: client_json.event_json.event.vehicle_category.type,
+                vehicle_direction: client_json.event_json.event.vehicle_category.type,
 
                 // vehicle_category_confidence: client_json.event_json.event.vehicle_category.confidence,
 
