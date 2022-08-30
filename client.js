@@ -139,6 +139,16 @@ module.exports = {
                 client_json.event_json['base64_images'] = base64_images;
 
             // }
+            
+            if  (client_json.event_json.db_match == "true") {
+                
+                allowed_status == allow
+            }
+            else
+            {
+                allowed_status == restrict
+            }
+                       
 
             var data = {
 
