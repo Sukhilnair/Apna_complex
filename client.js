@@ -122,7 +122,7 @@ module.exports = {
 
 
 
-            utils.log(constants.DEBUG_INFO, "Json to client - not printing base64 data\n" + utils.getPrettyJSON(client_json.event_json));
+            utils.log(constants.DEBUG_INFO, "Json to client - not printing base64 data\n");
 
 
 
@@ -139,57 +139,33 @@ module.exports = {
                 client_json.event_json['base64_images'] = base64_images;
 
             // }
-            
+
             if  (client_json.event_json.db_match == "true") {
-                
-                allowed_status == allow
+
+               var allowed_status = "allow"
             }
             else
             {
-                allowed_status == restrict
+                var allowed_status = "restrict"
             }
-                       
+
 
             var data = {
 
                 unique_id: client_json.event_json.unique_id,
 
-                // camera_id: client_json.event_json.extras.camera_id,
+                allowed_status: allowed_status,
 
-                // lane_id: client_json.event_json.info.camera_id,
+                event_type: client_json.event_json.event.direction.toLowerCase(),
 
-                plate: client_json.event_json.event.name,
-
-                // confidence: client_json.event_json.event.confidence,
-
-                // latitude: client_json.event_json.extras.latitude,
-
-                // longitude: client_json.event_json.extras.longitude,
-
-                vehicle_direction: client_json.event_json.event.vehicle_category.type,
-
-                // vehicle_category_confidence: client_json.event_json.event.vehicle_category.confidence,
-
-                event_timestamp: Math.round(parseFloat(client_json.event_json.info.event_timestamp)),
-
-                full_image: client_json.event_json.event.properties.path[0],
-
-                cropped_image: client_json.event_json.event.properties.path[1],
-
-                // video: client_json.event_json.event.properties.video,
-
-                evidence_image: client_json.event_json.event.properties.evidence_image[0]
-
-
-
-
+                event_time: moment.unix(client_json.event_json.info.event_timestamp/1000).format('YYYY-MM-DD hh:mm:ss'),
 
             }
 
-            console.log("====>evidence image for primary endpoint",data.evidence_image)
-            console.log(data.full_image)
+            //console.log("====>evidence image for primary endpoint",data.evidence_image)
+            //console.log(data.full_image)
 
-            console.log(data.camera_id + data.lane_id)
+            //console.log(data.camera_id + data.lane_id)
 
             console.log("==========================================================================================primary",data)
 
@@ -203,33 +179,15 @@ module.exports = {
 
                 .timeout(constants.APP_REQUEST_TIMEOUT)
 
-                .field('id', data.id) // Form field
+                .field('unique_id', data.unique_id) // Form field
 
-                .field('camera_id', data.camera_id + data.lane_id) // Form field
+                .field('allowed_status', data.allowed_status) // Form field
 
-                .field('lane_id', data.lane_id) // Form field
+                .field('event_type', data.event_type) // Form field
 
-                .field('plate', data.plate) // Form field
-
-                .field('confidence', data.confidence) // Form field
-
-                .field('latitude', data.latitude) // Form field
-
-                .field('longitude', data.longitude) // Form field
-
-                .field('vehicle_category', data.vehicle_category) // Form field
-
-                .field('vehicle_category_confidence', data.vehicle_category_confidence) // Form field
-
-                .field('event_timestamp', data.event_timestamp) // Form field
+                .field('event_time', data.event_time) // Form field
 
                // .field('alert', data.alert) // Form field
-
-                .attach('full_image', data.full_image) // Form field
-
-                .attach('cropped_image', data.cropped_image) // Form field
-
-                .attach('evidence_image', data.evidence_image) // Form field
 
                 .then(function (response) {
 
